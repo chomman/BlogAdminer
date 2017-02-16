@@ -1,0 +1,57 @@
+@{section header}
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">Blog adminer</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">Articles <span class="sr-only">(current)</span></a></li>
+			</ul>
+			<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link"><i class="glyphicon glyphicon-log-out"></i> Logout</a></p>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+@{end}
+
+<h1>@{model.title}</h1>
+<div>
+	<img src="/uploads/@{model.image_url}" alt="@{model.title}">
+</div>
+<form enctype="multipart/form-data" action="/update/@{model._id}" method="POST">
+	<div class="modal-body">
+
+		<div class="form-group">
+			<label for="title">Title</label>
+			<input type="text" name="title" value="@{model.title}" class="form-control" id="title" placeholder="">
+		</div>
+		<div class="form-group">
+			<label for="description">Description</label>
+			<textarea name="description" class="form-control" id="description">@{model.description}</textarea>
+		</div>
+		<div class="form-group">
+			<label for="article-content">Content</label>
+			<textarea name="content"  class="form-control" id="article-content" rows="10"></textarea>
+		</div>
+		<div class="form-group">
+			<label for="image_url">Article thumbnail</label>
+			<input type="file" name="image_url" id="image_url">
+		</div>
+		<div><button type="submit" class="btn btn-primary">Save</button></div>
+
+	</div>
+	</form>
+<script type="text/javascript">
+$('#article-content').summernote("code", '@{!model.content}');
+</script>
+

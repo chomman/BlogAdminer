@@ -1,0 +1,95 @@
+<h1>Articles</h1>
+
+@{section header}
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/">Blog adminer</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="/">Articles <span class="sr-only">(current)</span></a></li>
+			</ul>
+			<p class="navbar-text navbar-right"><a href="/logout" class="navbar-link"><i class="glyphicon glyphicon-log-out"></i> Logout</a></p>
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
+@{end}
+
+@{viewToggle(repository.isSuccess, 'success')}
+<div class="table-responsive">
+	<table class="table table-hover articles-table">
+		<thead>
+		<tr class="info">
+			<th>Title</th>
+			<th>Created</th>
+			<th class="text-right">Actions</th>
+		</tr>
+		</thead>
+		<tbody>
+		@{foreach article in model}
+		<tr>
+			<td>@{article.title}</td>
+			<td>@{helpers.date(article.created)}</td>
+			<td>
+				<a href="/remove/@{article._id}"><i class="glyphicon glyphicon-trash text-danger action-icon"></i></a>
+				<a href="/article/@{article._id}"><i
+						class="glyphicon glyphicon-pencil text-primary action-icon"></i></a>
+			</td>
+		</tr>
+		@{end}
+		</tbody>
+	</table>
+</div>
+<button class="btn btn-primary" data-toggle="modal" data-target="#article-form">Add new article</button>
+<div class="modal fade" id="article-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-info">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Add new article</h4>
+			</div>
+			<form class="" enctype="multipart/form-data" action="/create" method="POST">
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label for="title">Title</label>
+						<input type="text" name="title" class="form-control" id="title" placeholder="">
+					</div>
+					<div class="form-group">
+						<label for="description">Description</label>
+						<textarea name="description" class="form-control" id="description" placeholder=""></textarea>
+					</div>
+					<div class="form-group">
+						<label for="content">Content</label>
+						<textarea name="content" class="form-control" id="content" placeholder="" rows="10"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="image_url">Article thumbnail</label>
+						<input type="file" name="image" id="image_url">
+					</div>
+					<!--<div><button type="submit" class="btn btn-primary">Add article</button></div>-->
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Add article</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+	date = new Date(timestamp * 1000);
+</script>

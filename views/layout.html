@@ -1,0 +1,70 @@
+@{layout('')}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Blog adminer</title>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"/>
+
+	<!-- Custom style -->
+	<link rel="stylesheet" href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css"/>
+
+	<!-- include summernote css/js-->
+	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	@{import('head', 'default.css', 'favicon.ico')}
+
+</head>
+<body>
+@{section('header')}
+
+<div class="container">
+	@{body}
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#content').summernote({height: 150});
+
+
+
+		$('button').bind('click', function() {
+			$.post('/?ts=' + Date.now(), $('#f').serialize(), function(d) {
+				var err = $('#error');
+
+				if (d instanceof Array) {
+
+					err.empty();
+					d.forEach(function(o) {
+						err.append('<div class="alert alert-warning">' + o.error + '</div>');
+					});
+					err.show();
+					return;
+				};
+
+				err.hide();
+				window.location.href = '/';
+			});
+		});
+
+	});
+</script>
+@{if user !== null}
+<script> $('#article-content').summernote("insertText", '@{!model.content}');</script>
+@{fi}

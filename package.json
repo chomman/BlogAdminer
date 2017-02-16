@@ -1,0 +1,17 @@
+{
+  "name": "adminer",
+  "version": "1.0.0",
+  "description": "blog administration application",
+  "main": "debug.js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "mongodb": "^2.2.22",
+    "total.js": "^2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marko",
+  "license": "ISC"
+}
