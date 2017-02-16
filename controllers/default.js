@@ -6,7 +6,7 @@ exports.install = function () {
 	F.route('/article/{id}', article, ['authorize']);
 	F.route('/remove/{id}', remove , ['authorize']);
 	F.route('/update/{id}', update, ['authorize', 'post', 'upload', 10000], 3084);
-	F.route('/create', create, ['authorize', 'post', 'upload', 10000], 3084);
+	F.route('/create', create, ['post', 'upload', 10000], 3084);
 	F.route('/logout', logout, ['authorize']);
 };
 
